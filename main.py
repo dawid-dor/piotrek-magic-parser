@@ -165,7 +165,7 @@ for i, row in df.iterrows():
     df.at[i, 'Foil'] = "foil" if row['Foil'] else ''
     
     if not row['Collector Number']:
-        df.at[i, 'Collector Number'] = row['Number'] if decide_if_land(cleanse_card_name(row['Name'])) else ""
+        df.at[i, 'Collector Number'] = row['Number']
 
 
 # ### Drop unnecessary columns
