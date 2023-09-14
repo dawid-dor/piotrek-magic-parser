@@ -5,7 +5,7 @@
 
 # ## Imports
 
-import glob, requests
+import glob, requests, os
 import pandas as pd
 import numpy as np
 import re
@@ -128,6 +128,17 @@ def handle_data_card_exceptions(row, index, card_exceptions, output_df) -> None:
             output_df.drop(index, inplace=True)
 
 
+# ## Create input/output folders
+
+def create_folders() -> None:
+    ''' Creates folders if they don't exist '''
+    folders_path = ['./input', './output']
+
+    for folder_path in folders_path:
+        if not os.path.exists(folder_path):
+            os.mkdir(folder_path)
+
+
 # # Main
 
 # ### Inits
@@ -136,6 +147,8 @@ df: pd.DataFrame = pd.read_csv(INPUT_FOLDER_PATH)
 sets: dict = create_set_dictionary()
 card_exceptions_df: pd.DataFrame = pd.read_excel(CARD_EXCEPTIONS_FILE).replace(np.nan, None)
 set_exceptions_df: pd.DataFrame = pd.read_excel(SET_EXCEPTIONS_FILE).replace(np.nan, None)
+
+create_folders()
 
 
 # ### Change QTY to Count
