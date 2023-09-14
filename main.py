@@ -160,11 +160,6 @@ for i, row in df.iterrows():
 # ### Correct columns relevant to Moxfield's format
 
 for i, row in df.iterrows():
-    # FIXME
-    '''
-    if row['Set'] == 'Mystery Booster Playtest Cards':
-        print(row)
-    '''
     df.at[i, 'Name'] = cleanse_card_name(row['Name']).replace("Æ","Ae")
     df.at[i, 'Edition'] = find_correct_set(row['Set'], sets)
     df.at[i, 'Foil'] = "foil" if row['Foil'] else ''
@@ -190,4 +185,9 @@ df = df[order]
 # ### Save DF to CSV (output folder)
 
 df.to_csv(OUTPUT_FOLDER_PATH, index=False)
+
+
+# ### Create .py file from this notebook (.ipynb to .py)
+
+get_ipython().system('jupyter nbconvert --to script main.ipynb --no-prompt')
 
