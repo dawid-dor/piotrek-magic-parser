@@ -37,17 +37,17 @@ def create_set_dictionary() -> dict:
 
 # ## Set names
 
-def cleanse_set_name(set_name: str) -> str:
+def cleanse_set_name(set_name:str):
     ''' Delete unnecessary word additions to set names from MTGCB import. '''
     set_name_cleansed: str = set_name
-    to_mass_replace: list[str] = [' Variants', ' Decks', ' Edition']
+    to_mass_replace: list[str] = ['Variants', 'Decks', 'Edition']
     mass_replace_exceptions: list[str] = ['Starter Commander Decks']
-    
-    # TODO
-    # Replace regex ('cause it's slower) with manual index search to replace only one occurance at the end of string
+
     if set_name not in mass_replace_exceptions:
         for element in to_mass_replace:
-            set_name_cleansed = re.sub(f'{element}$', '', set_name_cleansed)
+            set_name_list = set_name_cleansed.split(" ")
+            if set_name_list[-1] == element:
+                set_name_cleansed = " ".join(set_name_list[:-1])
     
     return set_name_cleansed
 
@@ -74,14 +74,6 @@ def cleanse_card_name(card_name: str) -> str:
     
     result: str = [ele for ele in card_name.split(" (")][0]
 
-    return result
-
-
-def decide_if_land(card_name: str) -> bool:
-    ''' Check if it's a basic land, to set collector number in that card. '''
-    lands: list = ['plains', 'island', 'swamp', 'mountain', 'forest']
-    result: bool = True if card_name.lower() in lands else False
-        
     return result
 
 
